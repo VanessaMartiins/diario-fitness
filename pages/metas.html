@@ -1,34 +1,23 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Meta semanal</title>
-  <link rel="stylesheet" href="../css/style.css">
-</head>
-  <script>
-  window.onload = function () {
-    document.getElementById("pesoMeta").value = "";
-    document.getElementById("resultadoMeta").innerText = "";
-  };
-</script>
 <body>
 
-<h2>Meta semanal de acompanhamento</h2>
+<div class="container">
 
-<label>Peso atual (kg)</label><br>
-<input type="text" id="pesoMeta" placeholder="Ex: 65 ou 65,5"><br><br>
+  <h2>Meta semanal de acompanhamento</h2>
 
-<button onclick="gerarMeta()">Gerar sugestão</button>
+  <label>Peso atual (kg)</label>
+  <input type="text" id="pesoMeta" placeholder="Ex: 65 ou 65,5">
 
-<p id="resultadoMeta"></p>
+  <button onclick="gerarMeta()">Gerar sugestão</button>
 
-<p class="aviso">
-  ℹ️ Sugestões gerais. O acompanhamento médico é essencial.
-</p>
+  <p id="resultadoMeta"></p>
 
-<a href="../index.html">⬅ Voltar</a>
+  <p class="aviso">
+    ℹ️ Sugestões gerais. O acompanhamento médico é essencial.
+  </p>
+
+  <a href="../index.html">⬅ Voltar</a>
+
+</div>
 
 <script src="../js/script.js"></script>
-
 </body>
-</html>
