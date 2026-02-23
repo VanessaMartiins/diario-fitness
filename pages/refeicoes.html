@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Minhas refeições</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<h2>Minhas refeições 🍽️</h2>
+
+<label>Foto da refeição</label><br>
+<input type="file" id="foto" accept="image/*"><br><br>
+
+<img id="preview" style="max-width:300px; display:none;"><br>
+
+<label>Comentário</label><br>
+<textarea id="comentario" placeholder="Como foi essa refeição?"></textarea><br><br>
+
+<button onclick="salvarRefeicao()">Salvar refeição</button>
+
+<p class="aviso">
+  💚 Registro pessoal, sem julgamentos.
+</p>
+
+<a href="../index.html">⬅ Voltar</a>
+
+<script src="../js/script.js"></script>
+
+</body>
+</html>
