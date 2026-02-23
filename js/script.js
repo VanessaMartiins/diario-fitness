@@ -46,3 +46,21 @@ function gerarMeta() {
      foco em hábitos saudáveis. 
      Caso haja mudança de peso, algo entre ${max} kg e ${min} kg pode ser esperado.`;
 }
+
+function salvarRefeicao() {
+  const foto = document.getElementById("foto").files[0];
+  const comentario = document.getElementById("comentario").value;
+
+  if (!foto) {
+    alert("Selecione uma foto");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const img = document.getElementById("preview");
+    img.src = e.target.result;
+    img.style.display = "block";
+  };
+  reader.readAsDataURL(foto);
+}
