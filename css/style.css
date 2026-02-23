@@ -1,12 +1,137 @@
-body {
-  font-family: Arial, sans-serif;
+/* RESET BÁSICO */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-nav a,
-nav a:visited {
-  color: #2e7d32;       /* escolha a cor que você quiser */
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f7f5;
+  color: #2e2e2e;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* TOPO */
+.topo {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.topo h1 {
+  font-size: 2.2rem;
+}
+
+.subtitulo {
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+/* MENU */
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.menu a,
+.menu a:visited {
+  background: #81c784;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
   text-decoration: none;
   font-weight: 500;
 }
-nav a:hover {
+
+.menu a:hover {
+  background: #66bb6a;
+}
+
+/* CONTEÚDO */
+.conteudo {
+  display: flex;
+  justify-content: center;
+}
+
+/* CARD */
+.card {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+/* FORMULÁRIOS */
+label {
+  font-weight: 500;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* BOTÕES */
+button {
+  width: 100%;
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.7rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #43a047;
+}
+
+/* AVISO */
+.aviso {
+  background: #fff8e1;
+  border-left: 5px solid #ffca28;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+/* LINK VOLTAR */
+.voltar {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: #2e7d32;
+  text-decoration: none;
+}
+
+.voltar:hover {
   text-decoration: underline;
+}
+
+/* RODAPÉ */
+.rodape {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 0.85rem;
+  color: #777;
 }
