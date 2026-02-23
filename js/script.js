@@ -27,3 +27,22 @@ function calcularIMC() {
   document.getElementById("resultado").innerText =
     `IMC: ${imc} — ${mensagem}`;
 }
+function gerarMeta() {
+  let peso = document.getElementById("pesoMeta").value.trim();
+  peso = peso.replace(",", ".");
+  peso = parseFloat(peso);
+
+  if (isNaN(peso)) {
+    document.getElementById("resultadoMeta").innerText =
+      "⚠️ Digite um peso válido.";
+    return;
+  }
+
+  const min = (peso - 0.25).toFixed(1);
+  const max = (peso - 0.5).toFixed(1);
+
+  document.getElementById("resultadoMeta").innerText =
+    `Sugestão de acompanhamento semanal:
+     foco em hábitos saudáveis. 
+     Caso haja mudança de peso, algo entre ${max} kg e ${min} kg pode ser esperado.`;
+}
