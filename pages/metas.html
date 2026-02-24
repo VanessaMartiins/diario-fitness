@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <title>Meta semanal</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 
-<body>
-<body data-page="metas">
-<div class="app">
+<body data-page="meta">
 
-  <header class="header">
-    <h2>Meta semanal de acompanhamento</h2>
-  </header>
+  <div class="app">
 
-  <main class="conteudo">
+    <!-- MENU -->
+    <nav class="menu">
+      <a href="../index.html">Início</a>
+      <a href="calculo.html">Cálculo saudável</a>
+      <a href="meta.html">Meta semanal</a>
+      <a href="refeicoes.html">Refeições</a>
+    </nav>
 
-    <label>Peso atual (kg)</label><br>
-    <input type="text" id="pesoMeta" placeholder="Ex: 65 ou 65,5"><br><br>
+    <!-- CONTEÚDO -->
+    <h2>Meta semanal de acompanhamento 📊</h2>
+
+    <label for="pesoMeta">Peso atual (kg)</label>
+    <input
+      type="text"
+      id="pesoMeta"
+      placeholder="Ex: 65 ou 65,5"
+    >
 
     <button onclick="gerarMeta()">Gerar sugestão</button>
 
@@ -28,13 +36,10 @@
       ℹ️ Sugestões gerais. O acompanhamento médico é essencial.
     </p>
 
-    <a href="../index.html">⬅ Voltar</a>
+    <a href="../index.html" class="voltar">⬅ Voltar</a>
 
-  </main>
+  </div>
 
-</div>
-
-<script src="../js/script.js"></script>
-
+  <script src="../js/script.js"></script>
 </body>
 </html>
