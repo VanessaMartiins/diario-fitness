@@ -84,13 +84,13 @@ GitHub Pages — hospedagem
 Opção 1 — Localmente
 
 1. Clone o repositório:
-git clone https://github.com/seu-usuario/diario-fitness.git
+git clone https://github.com/vanessamartiins/diario-fitness.git
 2. Abra o arquivo index.html no navegador
 
 Opção 2 — Online
 
-Acesse pelo GitHub Pages (se publicado):
-https://seu-usuario.github.io/diario-fitness/
+Acesse pelo GitHub Pages:
+https://vanessamartiins.github.io/diario-fitness/
 
 ⚠️ Aviso Importante
 
