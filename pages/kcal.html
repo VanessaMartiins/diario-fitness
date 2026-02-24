@@ -1,0 +1,23 @@
+<div class="app">
+
+  <h2>Controle calórico diário</h2>
+  <p class="subtitle">Registro simples de consumo diário</p>
+
+  <div class="kcal-box">
+    <input id="alimento" placeholder="Alimento (ex: arroz)">
+    <input id="gramas" placeholder="Quantidade (g)">
+    <input id="kcal100" placeholder="kcal por 100g">
+
+    <button onclick="adicionarAlimento()">Adicionar</button>
+  </div>
+
+  <div class="resumo-kcal">
+    Total do dia<br>
+    <span><span id="totalKcal">0</span> kcal</span>
+  </div>
+
+  <div id="listaAlimentos"></div>
+
+  <a class="voltar" href="../index.html">⬅ Voltar</a>
+
+</div>
