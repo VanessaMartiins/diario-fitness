@@ -1,4 +1,6 @@
-/* RESET BÁSICO */
+/* =========================
+   RESET BÁSICO
+========================= */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,70 +9,115 @@
 
 body {
   font-family: "Segoe UI", Arial, sans-serif;
-  background: #f4f7f5;
+  background-color: #f1f8f4;
   color: #2e2e2e;
 }
 
-.subtitulo {
-  color: #555;
-  margin-top: 0.5rem;
+/* =========================
+   APP PRINCIPAL
+========================= */
+.app {
+  max-width: 360px;
+  margin: 30px auto;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  position: relative;
+  z-index: 10;
 }
 
-/* MENU */
+/* =========================
+   HEADER
+========================= */
+.header h1 {
+  margin: 0;
+  color: #4a148c;
+  text-align: center;
+}
+
+.subtitle {
+  margin-top: 6px;
+  text-align: center;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+/* =========================
+   MENU
+========================= */
 .menu {
+  margin: 18px 0;
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.menu a,
-.menu a:visited {
-  background: #81c784;
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border-radius: 20px;
+.menu a {
+  padding: 6px 10px;
+  background-color: #81c784;
+  border-radius: 10px;
   text-decoration: none;
+  color: white;
   font-weight: 500;
+  font-size: 0.85rem;
 }
 
 .menu a:hover {
-  background: #66bb6a;
+  background-color: #66bb6a;
 }
 
-/* CONTEÚDO */
+.menu a.ativo {
+  background-color: #4caf50;
+}
+
+/* =========================
+   CONTEÚDO
+========================= */
 .conteudo {
   display: block;
 }
 
-/* FORMULÁRIOS */
-label {
-  font-weight: 500;
+.conteudo h2 {
+  margin-bottom: 14px;
+  font-size: 1.1rem;
 }
 
-input, textarea {
+/* =========================
+   FORMULÁRIOS
+========================= */
+label {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+input,
+textarea {
   width: 100%;
   padding: 0.6rem;
   margin-top: 0.3rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.9rem;
   border-radius: 8px;
   border: 1px solid #ccc;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 textarea {
   resize: vertical;
 }
 
-/* BOTÕES */
+/* =========================
+   BOTÕES
+========================= */
 button {
   width: 100%;
   background: #4caf50;
   color: white;
   border: none;
-  padding: 0.7rem;
+  padding: 0.6rem;
   border-radius: 10px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
 }
 
@@ -78,154 +125,103 @@ button:hover {
   background: #43a047;
 }
 
+button,
+a {
+  pointer-events: auto;
+}
+
+/* Botão excluir */
 .btn-excluir {
-  margin-top: 0.8rem;
+  margin-top: 0.6rem;
   background: #e53935;
-  color: white;
-  border: none;
   padding: 0.5rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .btn-excluir:hover {
   background: #c62828;
 }
-/* AVISO */
+
+/* =========================
+   AÇÕES DO SITE (COMPARTILHAR)
+========================= */
+.acoes-site {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  margin: 1rem 0;
+  position: relative;
+  z-index: 5;
+}
+
+.acoes-site button {
+  width: auto;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.8rem;
+}
+
+/* =========================
+   AVISO
+========================= */
 .aviso {
   background: #fff8e1;
   border-left: 5px solid #ffca28;
-  padding: 1rem;
-  margin-top: 1.5rem;
+  padding: 0.9rem;
+  margin-top: 1.2rem;
   border-radius: 8px;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
 }
 
-/* LINK VOLTAR */
+/* =========================
+   ALERTA HOME
+========================= */
+.alerta {
+  background-color: #fff3cd;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 18px;
+}
+
+/* =========================
+   LINK VOLTAR
+========================= */
 .voltar {
   display: inline-block;
-  margin-top: 1.5rem;
+  margin-top: 1.2rem;
   color: #2e7d32;
   text-decoration: none;
+  font-size: 0.85rem;
 }
 
 .voltar:hover {
   text-decoration: underline;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f1f8f4;
-}
-
-.app {
-  max-width: 380px;
-  margin: 30px auto;
-  background: #ffffff;
-  padding: 18px;
-  border-radius: 14px;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
-}
-
-.header h1 {
-  margin: 0;
-  color: #4a148c;
-}
-
-.subtitle {
-  margin-top: 5px;
-  color: #555;
-}
-
-.menu {
-  margin: 25px 0;
-  display: flex;
-  gap: 15px;
-}
-
-.menu a {
-  padding: 8px 14px;
-  background-color: #ede7f6;
-  border-radius: 6px;
-  text-decoration: none;
-  color: #4a148c;
-  font-weight: 500;
-}
-
-.menu a:hover {
-  background-color: #d1c4e9;
-}
-
-.alerta {
-  background-color: #fff3cd;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 0.9em;
-  margin-bottom: 25px;
-}
-
+/* =========================
+   FOOTER
+========================= */
 .footer {
-  font-size: 0.85em;
+  margin-top: 20px;
+  font-size: 0.8rem;
   color: #777;
   text-align: center;
 }
-.conteudo label {
-  font-size: 0.9em;
-}
 
-.conteudo input {
-  margin-bottom: 12px;
-}
-
-.conteudo h2 {
-  margin-bottom: 15px;
-}
-.menu a.ativo {
-  background-color: #4caf50;
-  color: white;
-}
+/* =========================
+   RESPONSIVO
+========================= */
 @media (max-width: 600px) {
   .app {
     margin: 20px 10px;
-    padding: 16px;
+    padding: 14px;
   }
 
   .menu {
-    flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
 
   button {
-    font-size: 1.05rem;
+    font-size: 0.9rem;
   }
-  .acoes-site {
-  display: flex;
-  gap: 0.8rem;
-  justify-content: center;
-  margin: 1.5rem 0;
-}
-
-.acoes-site button {
-  background: #4caf50;
-  color: white;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.acoes-site button:hover {
-  background: #43a047;
-}
-  .card h2 {
-  margin-top: 1.2rem;
-  margin-bottom: 0.4rem;
-}
-
-.card p, .card li {
-  line-height: 1.6;
-}
 }
