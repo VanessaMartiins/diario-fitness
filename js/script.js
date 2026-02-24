@@ -97,7 +97,7 @@ function carregarRefeicoes() {
   const refeicoes =
     JSON.parse(localStorage.getItem("refeicoes")) || [];
 
-  refeicoes.forEach(ref => {
+  refeicoes.forEach((ref, index) => {
     const card = document.createElement("div");
     card.className = "card";
 
@@ -105,10 +105,22 @@ function carregarRefeicoes() {
       <img src="${ref.imagem}" style="width:100%; border-radius:10px;">
       <p><strong>${ref.data}</strong></p>
       <p>${ref.texto}</p>
+      <button class="btn-excluir" onclick="excluirRefeicao(${index})">
+        🗑️ Excluir
+      </button>
     `;
 
     lista.appendChild(card);
   });
+}
+function excluirRefeicao(index) {
+  const refeicoes =
+    JSON.parse(localStorage.getItem("refeicoes")) || [];
+
+  refeicoes.splice(index, 1);
+  localStorage.setItem("refeicoes", JSON.stringify(refeicoes));
+
+  carregarRefeicoes();
 }
 
 /*************************
