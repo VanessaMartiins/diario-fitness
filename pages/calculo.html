@@ -1,3 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cálculo saudável</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+  <header class="header">
+    <h2>Cálculo de referência saudável</h2>
+  </header>
+
+  <main class="conteudo">
+
+    <label>Altura (cm ou m)</label><br>
+    <input type="text" id="altura" placeholder="Ex: 165 ou 1,65"><br><br>
+
+    <label>Peso (kg)</label><br>
+    <input type="text" id="peso" placeholder="Ex: 65 ou 65,5"><br><br>
+
+    <button onclick="calcularIMC()">Calcular</button>
+
+    <p id="resultado"></p>
+
+    <p class="aviso">
+      ℹ️ Valores apenas informativos. Consulte profissionais de saúde.
+    </p>
+
+    <a href="../index.html">⬅ Voltar</a>
+
+  </main>
+
+</div>
+
 <script>
   window.onload = function () {
     document.getElementById("altura").value = "";
@@ -5,22 +44,8 @@
     document.getElementById("resultado").innerText = "";
   };
 </script>
-<h2>Cálculo de referência saudável</h2>
-
-<label>Altura (cm ou m)</label><br>
-<input type="text" id="altura" placeholder="Ex: 165 ou 1,65"><br><br>
-
-<label>Peso (kg)</label><br>
-<input type="text" id="peso" placeholder="Ex: 65 ou 65,5"><br><br>
-
-<button onclick="calcularIMC()">Calcular</button>
-
-<p id="resultado"></p>
-
-<p class="aviso">
-  ℹ️ Valores apenas informativos. Consulte profissionais de saúde.
-</p>
-
-<a href="../index.html">⬅ Voltar</a>
 
 <script src="../js/script.js"></script>
+
+</body>
+</html>
