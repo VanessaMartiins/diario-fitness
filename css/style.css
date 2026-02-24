@@ -277,3 +277,17 @@ body[data-page="interna"] .menu {
   cursor: pointer;
   color: #e53935;
 }
+.btn-principal {
+  display: inline-block;
+  padding: 0.7rem 1rem;
+  background: #4caf50;
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.btn-principal:hover {
+  background: #43a047;
+}
