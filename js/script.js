@@ -137,15 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("resultadoMeta").innerText =
       "Última meta salva:\n" + metaSalva;
   }
-
-  // menu ativo
-  const pagina = document.body.getAttribute("data-page");
-  document.querySelectorAll(".menu a").forEach(link => {
-    if (link.dataset.page === pagina) {
-      link.classList.add("ativo");
-    }
-  });
 });
+
 function compartilharWhatsApp() {
   const url = window.location.href;
   const texto = encodeURIComponent(
