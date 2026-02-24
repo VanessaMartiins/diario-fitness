@@ -229,3 +229,51 @@ a {
 body[data-page="interna"] .menu {
   display: none;
 }
+
+/* ===== CONTROLE CALÓRICO ===== */
+
+.kcal-box {
+  margin-top: 1.5rem;
+}
+
+.kcal-box input {
+  margin-bottom: 0.6rem;
+}
+
+.resumo-kcal {
+  margin: 1.2rem 0;
+  padding: 1rem;
+  background: #e8f5e9;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.resumo-kcal span {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+.item-kcal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fafafa;
+  padding: 0.8rem;
+  border-radius: 10px;
+  margin-bottom: 0.6rem;
+}
+
+.item-kcal p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.item-kcal button {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #e53935;
+}
