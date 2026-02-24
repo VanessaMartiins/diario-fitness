@@ -143,10 +143,10 @@ body {
 }
 
 .app {
-  max-width: 700px;
-  margin: 50px auto;
+  max-width: 520px;
+  margin: 40px auto;
   background: #ffffff;
-  padding: 30px;
+  padding: 20px;
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0,0,0,0.1);
 }
@@ -192,4 +192,15 @@ body {
   font-size: 0.85em;
   color: #777;
   text-align: center;
+}
+.conteudo label {
+  font-size: 0.9em;
+}
+
+.conteudo input {
+  margin-bottom: 12px;
+}
+
+.conteudo h2 {
+  margin-bottom: 15px;
 }
