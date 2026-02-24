@@ -1,23 +1,46 @@
-<div class="app">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Controle calórico diário</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
 
-  <h2>Controle calórico diário</h2>
-  <p class="subtitle">Registro simples de consumo diário</p>
+<body data-page="interna">
 
-  <div class="kcal-box">
-    <input id="alimento" placeholder="Alimento (ex: arroz)">
-    <input id="gramas" placeholder="Quantidade (g)">
-    <input id="kcal100" placeholder="kcal por 100g">
+  <div class="app">
 
-    <button onclick="adicionarAlimento()">Adicionar</button>
+    <h2>Controle calórico diário 🍎</h2>
+    <p class="subtitle">
+      Registro simples de alimentos consumidos no dia.
+    </p>
+
+    <div class="kcal-box">
+
+      <label>Alimento</label>
+      <input type="text" id="nomeAlimento" placeholder="Ex: Arroz">
+
+      <label>Quantidade (g)</label>
+      <input type="number" id="gramas" placeholder="Ex: 120">
+
+      <label>kcal por 100g</label>
+      <input type="number" id="kcal100" placeholder="Ex: 130">
+
+      <button onclick="adicionarAlimento()">Adicionar</button>
+
+    </div>
+
+    <div class="resumo-kcal">
+      Total do dia<br>
+      <span id="totalKcal">0</span> kcal
+    </div>
+
+    <div id="listaKcal"></div>
+
+    <a class="voltar" href="../index.html">⬅ Voltar</a>
+
   </div>
 
-  <div class="resumo-kcal">
-    Total do dia<br>
-    <span><span id="totalKcal">0</span> kcal</span>
-  </div>
-
-  <div id="listaAlimentos"></div>
-
-  <a class="voltar" href="../index.html">⬅ Voltar</a>
-
-</div>
+  <script src="../js/script.js"></script>
+</body>
+</html>
