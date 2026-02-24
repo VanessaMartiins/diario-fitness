@@ -225,3 +225,7 @@ a {
     font-size: 0.9rem;
   }
 }
+/* ESCONDER MENU FORA DA HOME */
+body[data-page="interna"] .menu {
+  display: none;
+}
