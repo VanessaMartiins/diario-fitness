@@ -12,7 +12,34 @@
 
     <h2>Cálculo de referência saudável</h2>
 
-    <!-- SEU CONTEÚDO AQUI -->
+    <p class="subtitle">
+      Ferramenta simples para acompanhamento geral.
+    </p>
+
+    <label for="altura">Altura (cm ou m)</label>
+    <input
+      type="text"
+      id="altura"
+      placeholder="Ex: 165 ou 1,65"
+    >
+
+    <label for="peso">Peso (kg)</label>
+    <input
+      type="text"
+      id="peso"
+      placeholder="Ex: 65 ou 65,5"
+    >
+
+    <button onclick="calcularIMC()">
+      Calcular
+    </button>
+
+    <p id="resultado"></p>
+
+    <p class="aviso">
+      ℹ️ Este cálculo é apenas informativo e não substitui
+      avaliação médica ou nutricional.
+    </p>
 
     <a class="voltar" href="../index.html">⬅ Voltar</a>
 
