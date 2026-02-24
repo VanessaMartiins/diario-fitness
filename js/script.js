@@ -166,3 +166,82 @@ function copiarLink() {
     alert("✅ Link copiado!");
   }
 }
+
+/*************************
+ * CONTROLE CALÓRICO DIÁRIO
+ *************************/
+
+function adicionarAlimento() {
+  const nome = document.getElementById("alimento").value.trim();
+  const gramas = parseFloat(
+    document.getElementById("gramas").value.replace(",", ".")
+  );
+  const kcal100 = parseFloat(
+    document.getElementById("kcal100").value.replace(",", ".")
+  );
+
+  if (!nome || isNaN(gramas) || isNaN(kcal100)) {
+    alert("Preencha todos os campos corretamente 🙂");
+    return;
+  }
+
+  const kcalTotal = ((gramas * kcal100) / 100).toFixed(1);
+
+  const alimento = {
+    nome,
+    gramas,
+    kcal100,
+    kcalTotal: parseFloat(kcalTotal),
+    data: new Date().toLocaleDateString("pt-BR")
+  };
+
+  const lista = JSON.parse(localStorage.getItem("kcalDiario")) || [];
+  lista.push(alimento);
+  localStorage.setItem("kcalDiario", JSON.stringify(lista));
+
+  document.getElementById("alimento").value = "";
+  document.getElementById("gramas").value = "";
+  document.getElementById("kcal100").value = "";
+
+  carregarAlimentos();
+}
+
+function carregarAlimentos() {
+  const container = document.getElementById("listaAlimentos");
+  const totalSpan = document.getElementById("totalKcal");
+
+  if (!container || !totalSpan) return;
+
+  container.innerHTML = "";
+
+  const hoje = new Date().toLocaleDateString("pt-BR");
+  const lista = JSON.parse(localStorage.getItem("kcalDiario")) || [];
+
+  let total = 0;
+
+  lista
+    .filter(item => item.data === hoje)
+    .forEach((item, index) => {
+      total += item.kcalTotal;
+
+      const div = document.createElement("div");
+      div.className = "item-kcal";
+      div.innerHTML = `
+        <strong>${item.nome}</strong>
+        <p>${item.gramas} g · ${item.kcalTotal} kcal</p>
+        <button onclick="removerAlimento(${index})">✖</button>
+      `;
+      container.appendChild(div);
+    });
+
+  totalSpan.innerText = total.toFixed(1);
+}
+
+function removerAlimento(index) {
+  const lista = JSON.parse(localStorage.getItem("kcalDiario")) || [];
+  lista.splice(index, 1);
+  localStorage.setItem("kcalDiario", JSON.stringify(lista));
+  carregarAlimentos();
+}
+
+document.addEventListener("DOMContentLoaded", carregarAlimentos);
