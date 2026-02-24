@@ -11,23 +11,6 @@ body {
   color: #2e2e2e;
 }
 
-/* CONTAINER */
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-}
-
-/* TOPO */
-.topo {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.topo h1 {
-  font-size: 2.2rem;
-}
-
 .subtitulo {
   color: #555;
   margin-top: 0.5rem;
@@ -57,18 +40,7 @@ body {
 
 /* CONTEÚDO */
 .conteudo {
-  display: flex;
-  justify-content: center;
-}
-
-/* CARD */
-.card {
-  background: white;
-  padding: 2rem;
-  border-radius: 16px;
-  width: 100%;
-  max-width: 500px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  display: block;
 }
 
 /* FORMULÁRIOS */
@@ -128,14 +100,6 @@ button:hover {
   text-decoration: underline;
 }
 
-/* RODAPÉ */
-.rodape {
-  text-align: center;
-  margin-top: 3rem;
-  font-size: 0.85rem;
-  color: #777;
-}
-
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -143,12 +107,12 @@ body {
 }
 
 .app {
-  max-width: 520px;
-  margin: 40px auto;
+  max-width: 380px;
+  margin: 30px auto;
   background: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
 }
 
 .header h1 {
