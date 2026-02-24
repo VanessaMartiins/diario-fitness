@@ -146,3 +146,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+function compartilharSite() {
+  const link = window.location.href;
+
+  const texto =
+    `🌱 Diário Fitness\n` +
+    `Projeto pessoal de acompanhamento de hábitos saudáveis.\n\n` +
+    `Acesse: ${link}`;
+
+  const url = "https://wa.me/?text=" + encodeURIComponent(texto);
+
+  window.open(url, "_blank");
+}
+
+function copiarLink() {
+  const link = window.location.href;
+
+  // fallback seguro (funciona mesmo sem HTTPS)
+  const tempInput = document.createElement("input");
+  tempInput.value = link;
+  document.body.appendChild(tempInput);
+  tempInput.select();
+  document.execCommand("copy");
+  document.body.removeChild(tempInput);
+
+  alert("Link do site copiado! 🔗");
+}
