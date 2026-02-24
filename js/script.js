@@ -146,30 +146,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+function compartilharWhatsApp() {
+  const url = window.location.href;
+  const texto = encodeURIComponent(
+    "Estou usando este Diário Fitness para acompanhar hábitos 👇"
+  );
 
-function compartilharSite() {
-  const link = window.location.href;
-
-  const texto =
-    `🌱 Diário Fitness\n` +
-    `Projeto pessoal de acompanhamento de hábitos saudáveis.\n\n` +
-    `Acesse: ${link}`;
-
-  const url = "https://wa.me/?text=" + encodeURIComponent(texto);
-
-  window.open(url, "_blank");
+  const link = `https://wa.me/?text=${texto}%20${encodeURIComponent(url)}`;
+  window.open(link, "_blank");
 }
 
 function copiarLink() {
-  const link = window.location.href;
+  const url = window.location.href;
 
-  // fallback seguro (funciona mesmo sem HTTPS)
-  const tempInput = document.createElement("input");
-  tempInput.value = link;
-  document.body.appendChild(tempInput);
-  tempInput.select();
-  document.execCommand("copy");
-  document.body.removeChild(tempInput);
-
-  alert("Link do site copiado! 🔗");
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url)
+      .then(() => alert("✅ Link copiado!"))
+      .catch(() => alert("❌ Não foi possível copiar o link."));
+  } else {
+    const input = document.createElement("input");
+    input.value = url;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand("copy");
+    document.body.removeChild(input);
+    alert("✅ Link copiado!");
+  }
 }
