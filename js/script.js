@@ -49,21 +49,34 @@ function gerarMeta() {
 }
 
 function salvarRefeicao() {
-  const foto = document.getElementById("foto").files[0];
+  const fotoInput = document.getElementById("foto");
   const comentario = document.getElementById("comentario").value;
 
-  if (!foto) {
-    alert("Selecione uma foto");
+  if (!fotoInput.files[0] || comentario.trim() === "") {
+    alert("Adicione uma foto e um comentário 🙂");
     return;
   }
 
   const reader = new FileReader();
-  reader.onload = function (e) {
-    const img = document.getElementById("preview");
-    img.src = e.target.result;
-    img.style.display = "block";
+
+  reader.onload = function () {
+    const refeicao = {
+      imagem: reader.result,
+      texto: comentario,
+      data: new Date().toLocaleDateString("pt-BR")
+    };
+
+    let refeicoes = JSON.parse(localStorage.getItem("refeicoes")) || [];
+    refeicoes.unshift(refeicao);
+    localStorage.setItem("refeicoes", JSON.stringify(refeicoes));
+
+    fotoInput.value = "";
+    document.getElementById("comentario").value = "";
+
+    carregarRefeicoes();
   };
-  reader.readAsDataURL(foto);
+
+  reader.readAsDataURL(fotoInput.files[0]);
 }
 const pagina = document.body.getAttribute("data-page");
 
