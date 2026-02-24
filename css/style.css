@@ -200,4 +200,24 @@ body {
   button {
     font-size: 1.05rem;
   }
+  .acoes-site {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.acoes-site button {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.acoes-site button:hover {
+  background: #43a047;
+}
 }
