@@ -1,42 +1,30 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Diário Fitness</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
+<div class="app">
 
-<body data-page="home">
+  <header class="header">
+    <h1>Diário Fitness 🌱</h1>
+    <p class="subtitle">Projeto pessoal de acompanhamento de hábitos</p>
+  </header>
 
+  <nav class="menu">
+    <a href="pages/calculo.html">Cálculo saudável</a>
+    <a href="pages/metas.html">Meta semanal</a>
+    <a href="pages/refeicoes.html">Refeições</a>
+    <a href="pages/sobre.html">Sobre</a>
+  </nav>
+
+  <!-- 🔥 NOVO BOTÃO DO PROJETO -->
   <div class="acoes-site">
-    <button onclick="compartilharWhatsApp()">📲 Compartilhar</button>
-    <button onclick="copiarLink()">🔗 Copiar link</button>
+    <a class="btn-principal" href="pages/kcal.html">
+      🍎 Controle calórico diário
+    </a>
   </div>
 
-  <div class="app">
-
-    <header class="header">
-      <h1>Diário Fitness 🌱</h1>
-      <p class="subtitle">Projeto pessoal de acompanhamento de hábitos</p>
-    </header>
-
-    <nav class="menu">
-      <a href="pages/calculo.html">Cálculo saudável</a>
-      <a href="pages/metas.html">Meta semanal</a>
-      <a href="pages/refeicoes.html">Refeições</a>
-      <a href="pages/sobre.html">Sobre</a>
-    </nav>
-
-    <div class="alerta">
-      ⚠️ Este site não tem finalidade médica.
-    </div>
-
-    <footer class="footer">
-      Projeto pessoal · Vanessa Gomes
-    </footer>
-
+  <div class="alerta">
+    ⚠️ Este site não tem finalidade médica. O acompanhamento médico é essencial.
   </div>
 
-  <script src="js/script.js"></script>
-</body>
-</html>
+  <footer class="footer">
+    Projeto pessoal · Vanessa Gomes
+  </footer>
+
+</div>
