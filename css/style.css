@@ -220,4 +220,12 @@ body {
 .acoes-site button:hover {
   background: #43a047;
 }
+  .card h2 {
+  margin-top: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+
+.card p, .card li {
+  line-height: 1.6;
+}
 }
