@@ -78,6 +78,20 @@ button:hover {
   background: #43a047;
 }
 
+.btn-excluir {
+  margin-top: 0.8rem;
+  background: #e53935;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-excluir:hover {
+  background: #c62828;
+}
 /* AVISO */
 .aviso {
   background: #fff8e1;
