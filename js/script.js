@@ -1,10 +1,9 @@
+/*************************
+ * CÁLCULO SAUDÁVEL (IMC)
+ *************************/
 function calcularIMC() {
-  let altura = document.getElementById("altura").value;
-  let peso = document.getElementById("peso").value;
-
-  // troca vírgula por ponto
-  altura = altura.replace(",", ".");
-  peso = peso.replace(",", ".");
+  let altura = document.getElementById("altura").value.replace(",", ".");
+  let peso = document.getElementById("peso").value.replace(",", ".");
 
   altura = parseFloat(altura);
   peso = parseFloat(peso);
@@ -14,9 +13,7 @@ function calcularIMC() {
     return;
   }
 
-  // se altura vier em cm
   const h = altura > 3 ? altura / 100 : altura;
-
   const imc = (peso / (h * h)).toFixed(1);
 
   let mensagem = "";
@@ -27,32 +24,39 @@ function calcularIMC() {
   document.getElementById("resultado").innerText =
     `IMC: ${imc} — ${mensagem}`;
 }
+
+/*************************
+ * META SEMANAL
+ *************************/
 function gerarMeta() {
-  let peso = document.getElementById("pesoMeta").value.trim();
-  peso = peso.replace(",", ".");
+  let peso = document.getElementById("pesoMeta").value.replace(",", ".");
   peso = parseFloat(peso);
 
   if (isNaN(peso)) {
     document.getElementById("resultadoMeta").innerText =
       "⚠️ Digite um peso válido.";
     return;
-    localStorage.setItem("ultimaMeta", resultado);
   }
 
   const min = (peso - 0.25).toFixed(1);
   const max = (peso - 0.5).toFixed(1);
 
-  document.getElementById("resultadoMeta").innerText =
+  const resultado =
     `Sugestão de acompanhamento semanal:
-     foco em hábitos saudáveis. 
-     Caso haja mudança de peso, algo entre ${max} kg e ${min} kg pode ser esperado.`;
+Caso haja mudança, algo entre ${max} kg e ${min} kg pode ser esperado.`;
+
+  document.getElementById("resultadoMeta").innerText = resultado;
+  localStorage.setItem("ultimaMeta", resultado);
 }
 
+/*************************
+ * REFEIÇÕES (SALVAR)
+ *************************/
 function salvarRefeicao() {
   const fotoInput = document.getElementById("foto");
   const comentario = document.getElementById("comentario").value;
 
-  if (!fotoInput.files[0] || comentario.trim() === "") {
+  if (!fotoInput || !fotoInput.files[0] || comentario.trim() === "") {
     alert("Adicione uma foto e um comentário 🙂");
     return;
   }
@@ -66,7 +70,9 @@ function salvarRefeicao() {
       data: new Date().toLocaleDateString("pt-BR")
     };
 
-    let refeicoes = JSON.parse(localStorage.getItem("refeicoes")) || [];
+    const refeicoes =
+      JSON.parse(localStorage.getItem("refeicoes")) || [];
+
     refeicoes.unshift(refeicao);
     localStorage.setItem("refeicoes", JSON.stringify(refeicoes));
 
@@ -78,17 +84,53 @@ function salvarRefeicao() {
 
   reader.readAsDataURL(fotoInput.files[0]);
 }
-const pagina = document.body.getAttribute("data-page");
 
-document.querySelectorAll(".menu a").forEach(link => {
-  if (link.dataset.page === pagina) {
-    link.classList.add("ativo");
-  }
-  window.onload = function () {
+/*************************
+ * REFEIÇÕES (CARREGAR)
+ *************************/
+function carregarRefeicoes() {
+  const lista = document.getElementById("listaRefeicoes");
+  if (!lista) return;
+
+  lista.innerHTML = "";
+
+  const refeicoes =
+    JSON.parse(localStorage.getItem("refeicoes")) || [];
+
+  refeicoes.forEach(ref => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+      <img src="${ref.imagem}" style="width:100%; border-radius:10px;">
+      <p><strong>${ref.data}</strong></p>
+      <p>${ref.texto}</p>
+    `;
+
+    lista.appendChild(card);
+  });
+}
+
+/*************************
+ * INICIALIZAÇÃO GLOBAL
+ *************************/
+document.addEventListener("DOMContentLoaded", () => {
+
+  // carregar refeições
+  carregarRefeicoes();
+
+  // carregar última meta salva
   const metaSalva = localStorage.getItem("ultimaMeta");
-  if (metaSalva) {
+  if (metaSalva && document.getElementById("resultadoMeta")) {
     document.getElementById("resultadoMeta").innerText =
-      "Última meta salva: " + metaSalva;
+      "Última meta salva:\n" + metaSalva;
   }
-};
+
+  // menu ativo
+  const pagina = document.body.getAttribute("data-page");
+  document.querySelectorAll(".menu a").forEach(link => {
+    if (link.dataset.page === pagina) {
+      link.classList.add("ativo");
+    }
+  });
 });
