@@ -168,3 +168,7 @@ body {
 .conteudo h2 {
   margin-bottom: 15px;
 }
+.menu a.ativo {
+  background-color: #4caf50;
+  color: white;
+}
