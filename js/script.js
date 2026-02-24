@@ -64,3 +64,10 @@ function salvarRefeicao() {
   };
   reader.readAsDataURL(foto);
 }
+const pagina = document.body.getAttribute("data-page");
+
+document.querySelectorAll(".menu a").forEach(link => {
+  if (link.dataset.page === pagina) {
+    link.classList.add("ativo");
+  }
+});
