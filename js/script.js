@@ -36,6 +36,7 @@ function gerarMeta() {
     document.getElementById("resultadoMeta").innerText =
       "⚠️ Digite um peso válido.";
     return;
+    localStorage.setItem("ultimaMeta", resultado);
   }
 
   const min = (peso - 0.25).toFixed(1);
@@ -70,4 +71,11 @@ document.querySelectorAll(".menu a").forEach(link => {
   if (link.dataset.page === pagina) {
     link.classList.add("ativo");
   }
+  window.onload = function () {
+  const metaSalva = localStorage.getItem("ultimaMeta");
+  if (metaSalva) {
+    document.getElementById("resultadoMeta").innerText =
+      "Última meta salva: " + metaSalva;
+  }
+};
 });
