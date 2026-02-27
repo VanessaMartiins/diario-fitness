@@ -323,3 +323,24 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("resultadoMeta").innerText = meta;
   }
 });
+
+/************************************
+ * CONTROLE DE VISUAL DO HOME
+ ************************************/
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.body.dataset.page !== "home") return;
+
+  const usuario = localStorage.getItem("usuarioLogado");
+
+  const areaLogin = document.getElementById("area-login");
+  const areaUsuario = document.getElementById("area-usuario");
+
+  if (usuario) {
+    areaLogin.style.display = "none";
+    areaUsuario.style.display = "block";
+    document.getElementById("nomeUsuario").innerText = usuario;
+  } else {
+    areaLogin.style.display = "block";
+    areaUsuario.style.display = "none";
+  }
+});
