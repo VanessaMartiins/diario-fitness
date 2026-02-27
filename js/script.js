@@ -1,17 +1,156 @@
-/************************************
- * LOGIN SIMPLES POR USUÁRIO
- ************************************/
-function getUsuario() {
-  return localStorage.getItem("usuarioLogado");
+/*************************
+ * LOGIN / USUÁRIO
+ *************************/
+
+function login() {
+  const nome = document.getElementById("usuario").value.trim();
+
+  if (!nome) {
+    alert("Digite seu nome");
+    return;
+  }
+
+  localStorage.setItem("usuarioLogado", nome);
+
+  if (!localStorage.getItem("usuarios")) {
+    localStorage.setItem("usuarios", JSON.stringify({}));
+  }
+
+  const usuarios = JSON.parse(localStorage.getItem("usuarios"));
+
+  if (!usuarios[nome]) {
+    usuarios[nome] = { dias: {} };
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+  }
+
+  window.location.href = "controle.html";
 }
 
-function setUsuario(nome) {
-  localStorage.setItem("usuarioLogado", nome);
+function getUsuarioAtual() {
+  return localStorage.getItem("usuarioLogado");
 }
 
 function logout() {
   localStorage.removeItem("usuarioLogado");
   window.location.href = "login.html";
+}
+
+/*************************
+ * DATA / STORAGE
+ *************************/
+
+function getDataHoje() {
+  return new Date().toISOString().split("T")[0];
+}
+
+function getUsuarios() {
+  return JSON.parse(localStorage.getItem("usuarios"));
+}
+
+function salvarUsuarios(usuarios) {
+  localStorage.setItem("usuarios", JSON.stringify(usuarios));
+}
+
+function getDiaAtual() {
+  const usuario = getUsuarioAtual();
+  const usuarios = getUsuarios();
+  const hoje = getDataHoje();
+
+  if (!usuarios[usuario].dias[hoje]) {
+    usuarios[usuario].dias[hoje] = {
+      alimentos: [],
+      totalKcal: 0
+    };
+    salvarUsuarios(usuarios);
+  }
+
+  return usuarios[usuario].dias[hoje];
+}
+
+/*************************
+ * ALIMENTOS
+ *************************/
+
+function adicionarAlimento() {
+  const alimento = document.getElementById("alimento").value;
+  const gramas = Number(document.getElementById("gramas").value);
+  const kcal100 = Number(document.getElementById("kcal100").value);
+
+  if (!alimento || !gramas || !kcal100) {
+    alert("Preencha todos os campos");
+    return;
+  }
+
+  const kcal = (gramas * kcal100) / 100;
+
+  const usuario = getUsuarioAtual();
+  const usuarios = getUsuarios();
+  const hoje = getDataHoje();
+
+  usuarios[usuario].dias[hoje].alimentos.push({
+    alimento,
+    gramas,
+    kcal
+  });
+
+  usuarios[usuario].dias[hoje].totalKcal += kcal;
+
+  salvarUsuarios(usuarios);
+
+  limparCampos();
+  atualizarTela();
+}
+
+function limparCampos() {
+  document.getElementById("alimento").value = "";
+  document.getElementById("gramas").value = "";
+  document.getElementById("kcal100").value = "";
+}
+
+/*************************
+ * TELA
+ *************************/
+
+function atualizarTela() {
+  const dia = getDiaAtual();
+
+  document.getElementById("totalKcal").innerText =
+    dia.totalKcal.toFixed(0);
+
+  const lista = document.getElementById("listaAlimentos");
+  lista.innerHTML = "";
+
+  dia.alimentos.forEach(item => {
+    const div = document.createElement("div");
+    div.innerText = `${item.alimento} - ${item.kcal.toFixed(0)} kcal`;
+    lista.appendChild(div);
+  });
+}
+
+window.onload = function () {
+  if (document.body.dataset.page === "interna") {
+    atualizarTela();
+  }
+};
+
+/*************************
+ * LIMPAR DIA
+ *************************/
+
+function limparDia() {
+  if (!confirm("Deseja apagar tudo de hoje?")) return;
+
+  const usuario = getUsuarioAtual();
+  const usuarios = getUsuarios();
+  const hoje = getDataHoje();
+
+  usuarios[usuario].dias[hoje] = {
+    alimentos: [],
+    totalKcal: 0
+  };
+
+  salvarUsuarios(usuarios);
+  atualizarTela();
 }
 
 /************************************
