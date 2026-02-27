@@ -18,15 +18,14 @@
     <div class="kcal-box">
 
       <label>Alimento</label>
-      <input type="text" id="alimento" placeholder="Ex: Arroz">
+      <select id="nomeAlimento"></select>
 
       <label>Quantidade (g)</label>
       <input type="number" id="gramas" placeholder="Ex: 120">
 
-      <label>kcal por 100g</label>
-      <input type="number" id="kcal100" placeholder="Ex: 130">
-
-      <button type="button" onclick="adicionarAlimento()">Adicionar</button>
+      <button type="button" onclick="adicionarAlimento()">
+        Adicionar
+      </button>
 
     </div>
 
@@ -35,7 +34,7 @@
       <span id="totalKcal">0</span> kcal
     </div>
 
-    <div id="listaAlimentos"></div>
+    <div id="listaKcal"></div>
 
     <a class="voltar" href="../index.html">⬅ Voltar</a>
 
