@@ -29,6 +29,26 @@
 
     </div>
 
+    <div class="novo-alimento-box">
+  <h3>Adicionar novo alimento ➕</h3>
+
+  <input
+    type="text"
+    id="novoNome"
+    placeholder="Nome do alimento"
+  >
+
+  <input
+    type="number"
+    id="novoKcal"
+    placeholder="kcal por 100g"
+  >
+
+  <button onclick="salvarNovoAlimento()">
+    Salvar alimento
+  </button>
+</div>
+
     <div class="resumo-kcal">
       Total do dia<br>
       <span id="totalKcal">0</span> kcal
@@ -40,6 +60,12 @@
 
   </div>
 
+  <button class="btn-limpar" onclick="limparDia()">
+  🧹 Limpar consumo de hoje
+</button>
+
+  <canvas id="graficoKcal" height="200"></canvas>
+  
   <script src="../js/script.js"></script>
 </body>
 </html>
