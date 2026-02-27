@@ -3,29 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Login - Diário Fitness</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
+
   <div class="app">
     <h2>Entrar</h2>
 
     <label>Usuário</label>
     <input type="text" id="usuario" placeholder="Ex: vanessa">
 
-    <button onclick="entrar()">Entrar</button>
+    <button id="btnLogin">Entrar</button>
   </div>
 
-  <script>
-    function entrar() {
-      const nome = document.getElementById("usuario").value.trim();
-      if (!nome) {
-        alert("Digite um nome");
-        return;
-      }
-      localStorage.setItem("usuarioLogado", nome);
-      window.location.href = "index.html";
-    }
-  </script>
+  <script src="../js/auth.js"></script>
 </body>
 </html>
