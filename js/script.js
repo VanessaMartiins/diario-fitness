@@ -1,4 +1,20 @@
 /************************************
+ * LOGIN SIMPLES POR USUÁRIO
+ ************************************/
+function getUsuario() {
+  return localStorage.getItem("usuarioLogado");
+}
+
+function setUsuario(nome) {
+  localStorage.setItem("usuarioLogado", nome);
+}
+
+function logout() {
+  localStorage.removeItem("usuarioLogado");
+  window.location.href = "login.html";
+}
+
+/************************************
  * BASE DE ALIMENTOS (kcal/100g)
  ************************************/
 const alimentosPadrao = [
