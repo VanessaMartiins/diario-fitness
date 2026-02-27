@@ -36,14 +36,15 @@ if (!localStorage.getItem("kcalDia")) {
  * IMC
  ************************************/
 function calcularIMC() {
-  let altura = document.getElementById("altura").value.replace(",", ".");
-  let peso = document.getElementById("peso").value.replace(",", ".");
-
-  altura = parseFloat(altura);
-  peso = parseFloat(peso);
+  const altura = parseFloat(
+    document.getElementById("altura").value.replace(",", ".")
+  );
+  const peso = parseFloat(
+    document.getElementById("peso").value.replace(",", ".")
+  );
 
   if (isNaN(altura) || isNaN(peso)) {
-    alert("Digite valores numéricos válidos");
+    alert("Digite valores válidos");
     return;
   }
 
@@ -51,9 +52,9 @@ function calcularIMC() {
   const imc = (peso / (h * h)).toFixed(1);
 
   const msg =
-    imc < 18.5 ? "Abaixo da faixa considerada saudável." :
-    imc < 25 ? "Dentro da faixa considerada saudável." :
-    "Acima da faixa considerada saudável.";
+    imc < 18.5 ? "Abaixo do saudável." :
+    imc < 25 ? "Faixa saudável." :
+    "Acima do saudável.";
 
   document.getElementById("resultado").innerText =
     `IMC: ${imc} — ${msg}`;
@@ -78,7 +79,7 @@ function gerarMeta() {
 
   const resultado =
     `Sugestão semanal:
-Caso haja mudança, algo entre ${max} kg e ${min} kg.`;
+Entre ${max} kg e ${min} kg.`;
 
   document.getElementById("resultadoMeta").innerText = resultado;
   localStorage.setItem("ultimaMeta", resultado);
@@ -92,7 +93,7 @@ function salvarRefeicao() {
   const comentario = document.getElementById("comentario").value.trim();
 
   if (!foto?.files[0] || !comentario) {
-    alert("Adicione foto e comentário 🙂");
+    alert("Adicione foto e comentário");
     return;
   }
 
@@ -122,15 +123,14 @@ function carregarRefeicoes() {
   const lista = JSON.parse(localStorage.getItem("refeicoes")) || [];
 
   lista.forEach(ref => {
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `
-      <img src="${ref.imagem}" style="width:100%; border-radius:10px;">
-      <p><strong>${ref.data}</strong></p>
-      <p>${ref.texto}</p>
-      <button class="btn-excluir" onclick="excluirRefeicao(${ref.id})">🗑️</button>
+    listaEl.innerHTML += `
+      <div class="card">
+        <img src="${ref.imagem}">
+        <p><strong>${ref.data}</strong></p>
+        <p>${ref.texto}</p>
+        <button onclick="excluirRefeicao(${ref.id})">🗑️</button>
+      </div>
     `;
-    listaEl.appendChild(div);
   });
 }
 
@@ -148,16 +148,13 @@ function carregarSelectAlimentos() {
   const select = document.getElementById("nomeAlimento");
   if (!select) return;
 
-  select.innerHTML = `<option value="">Selecione o alimento</option>`;
+  select.innerHTML = `<option value="">Selecione</option>`;
 
   const base = JSON.parse(localStorage.getItem("alimentosBase"));
   const usuario = JSON.parse(localStorage.getItem("alimentosUsuario"));
 
   [...base, ...usuario].forEach((item, index) => {
-    const opt = document.createElement("option");
-    opt.value = index;
-    opt.textContent = item.nome;
-    select.appendChild(opt);
+    select.innerHTML += `<option value="${index}">${item.nome}</option>`;
   });
 }
 
@@ -166,19 +163,20 @@ function adicionarAlimento() {
   const gramas = Number(document.getElementById("gramas").value);
 
   if (index === "" || !gramas) {
-    alert("Preencha todos os campos");
+    alert("Preencha os campos");
     return;
   }
 
-  const base = JSON.parse(localStorage.getItem("alimentosBase"));
-  const usuario = JSON.parse(localStorage.getItem("alimentosUsuario"));
-  const alimentos = [...base, ...usuario];
+  const alimentos = [
+    ...JSON.parse(localStorage.getItem("alimentosBase")),
+    ...JSON.parse(localStorage.getItem("alimentosUsuario"))
+  ];
 
-  const alimento = alimentos[index];
-  const kcal = (gramas * alimento.kcal100) / 100;
+  const hoje = new Date().toLocaleDateString("pt-BR");
+  const kcal = (gramas * alimentos[index].kcal100) / 100;
 
   const registros = JSON.parse(localStorage.getItem("kcalDia"));
-  registros.push({ nome: alimento.nome, gramas, kcal });
+  registros.push({ nome: alimentos[index].nome, gramas, kcal, data: hoje });
 
   localStorage.setItem("kcalDia", JSON.stringify(registros));
   atualizarTelaKcal();
@@ -189,12 +187,13 @@ function atualizarTelaKcal() {
   const totalEl = document.getElementById("totalKcal");
   if (!lista || !totalEl) return;
 
+  const hoje = new Date().toLocaleDateString("pt-BR");
+  const registros = JSON.parse(localStorage.getItem("kcalDia"));
+
   lista.innerHTML = "";
   let total = 0;
 
-  const registros = JSON.parse(localStorage.getItem("kcalDia"));
-
-  registros.forEach((item, i) => {
+  registros.filter(r => r.data === hoje).forEach((item, i) => {
     total += item.kcal;
     lista.innerHTML += `
       <div class="item">
@@ -206,6 +205,7 @@ function atualizarTelaKcal() {
   });
 
   totalEl.innerText = total.toFixed(1);
+  desenharGrafico();
 }
 
 function removerAlimento(i) {
@@ -215,6 +215,17 @@ function removerAlimento(i) {
   atualizarTelaKcal();
 }
 
+function limparDia() {
+  const hoje = new Date().toLocaleDateString("pt-BR");
+  let registros = JSON.parse(localStorage.getItem("kcalDia"));
+  registros = registros.filter(r => r.data !== hoje);
+  localStorage.setItem("kcalDia", JSON.stringify(registros));
+  atualizarTelaKcal();
+}
+
+/************************************
+ * NOVO ALIMENTO (usuário)
+ ************************************/
 function salvarNovoAlimento() {
   const nome = document.getElementById("novoNome").value.trim();
   const kcal100 = Number(document.getElementById("novoKcal").value);
@@ -232,6 +243,36 @@ function salvarNovoAlimento() {
   document.getElementById("novoKcal").value = "";
 
   carregarSelectAlimentos();
+}
+
+/************************************
+ * GRÁFICO SIMPLES (canvas)
+ ************************************/
+function desenharGrafico() {
+  const canvas = document.getElementById("graficoKcal");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const registros = JSON.parse(localStorage.getItem("kcalDia"));
+  const porDia = {};
+
+  registros.forEach(r => {
+    porDia[r.data] = (porDia[r.data] || 0) + r.kcal;
+  });
+
+  const dias = Object.keys(porDia);
+  const valores = Object.values(porDia);
+  const max = Math.max(...valores, 1);
+
+  const largura = canvas.width / dias.length;
+
+  valores.forEach((v, i) => {
+    const h = (v / max) * 180;
+    ctx.fillStyle = "#4CAF50";
+    ctx.fillRect(i * largura, 200 - h, largura - 10, h);
+  });
 }
 
 /************************************
