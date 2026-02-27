@@ -1,6 +1,40 @@
-/*************************
- * CÁLCULO SAUDÁVEL (IMC)
- *************************/
+/************************************
+ * BASE DE ALIMENTOS (kcal/100g)
+ ************************************/
+const alimentosPadrao = [
+  { nome: "Arroz branco", kcal100: 130 },
+  { nome: "Feijão carioca", kcal100: 77 },
+  { nome: "Pão francês", kcal100: 270 },
+  { nome: "Frango grelhado", kcal100: 165 },
+  { nome: "Carne bovina", kcal100: 250 },
+  { nome: "Ovo", kcal100: 155 },
+  { nome: "Banana", kcal100: 89 },
+  { nome: "Maçã", kcal100: 52 },
+  { nome: "Batata cozida", kcal100: 87 },
+  { nome: "Batata doce", kcal100: 86 },
+  { nome: "Aveia", kcal100: 389 },
+  { nome: "Iogurte natural", kcal100: 59 },
+  { nome: "Queijo muçarela", kcal100: 300 },
+  { nome: "Leite integral", kcal100: 61 },
+  { nome: "Brócolis", kcal100: 34 },
+  { nome: "Alface", kcal100: 15 },
+  { nome: "Tomate", kcal100: 18 },
+  { nome: "Peito de peru", kcal100: 135 }
+];
+
+if (!localStorage.getItem("alimentosBase")) {
+  localStorage.setItem("alimentosBase", JSON.stringify(alimentosPadrao));
+}
+if (!localStorage.getItem("alimentosUsuario")) {
+  localStorage.setItem("alimentosUsuario", JSON.stringify([]));
+}
+if (!localStorage.getItem("kcalDia")) {
+  localStorage.setItem("kcalDia", JSON.stringify([]));
+}
+
+/************************************
+ * IMC
+ ************************************/
 function calcularIMC() {
   let altura = document.getElementById("altura").value.replace(",", ".");
   let peso = document.getElementById("peso").value.replace(",", ".");
@@ -16,20 +50,20 @@ function calcularIMC() {
   const h = altura > 3 ? altura / 100 : altura;
   const imc = (peso / (h * h)).toFixed(1);
 
-  let mensagem =
+  const msg =
     imc < 18.5 ? "Abaixo da faixa considerada saudável." :
     imc < 25 ? "Dentro da faixa considerada saudável." :
     "Acima da faixa considerada saudável.";
 
   document.getElementById("resultado").innerText =
-    `IMC: ${imc} — ${mensagem}`;
+    `IMC: ${imc} — ${msg}`;
 }
 
-/*************************
+/************************************
  * META SEMANAL
- *************************/
+ ************************************/
 function gerarMeta() {
-  let peso = parseFloat(
+  const peso = parseFloat(
     document.getElementById("pesoMeta").value.replace(",", ".")
   );
 
@@ -50,14 +84,14 @@ Caso haja mudança, algo entre ${max} kg e ${min} kg.`;
   localStorage.setItem("ultimaMeta", resultado);
 }
 
-/*************************
- * REFEIÇÕES
- *************************/
+/************************************
+ * REFEIÇÕES (foto + comentário)
+ ************************************/
 function salvarRefeicao() {
   const foto = document.getElementById("foto");
   const comentario = document.getElementById("comentario").value.trim();
 
-  if (!foto.files[0] || !comentario) {
+  if (!foto?.files[0] || !comentario) {
     alert("Adicione foto e comentário 🙂");
     return;
   }
@@ -107,72 +141,106 @@ function excluirRefeicao(id) {
   carregarRefeicoes();
 }
 
-/*************************
+/************************************
  * CONTROLE CALÓRICO DIÁRIO
- *************************/
-function adicionarAlimento() {
-  const nome = document.getElementById("alimento").value.trim();
-  const gramas = parseFloat(document.getElementById("gramas").value);
-  const kcal100 = parseFloat(document.getElementById("kcal100").value);
+ ************************************/
+function carregarSelectAlimentos() {
+  const select = document.getElementById("nomeAlimento");
+  if (!select) return;
 
-  if (!nome || isNaN(gramas) || isNaN(kcal100)) {
-    alert("Preencha todos os campos 🙂");
+  select.innerHTML = `<option value="">Selecione o alimento</option>`;
+
+  const base = JSON.parse(localStorage.getItem("alimentosBase"));
+  const usuario = JSON.parse(localStorage.getItem("alimentosUsuario"));
+
+  [...base, ...usuario].forEach((item, index) => {
+    const opt = document.createElement("option");
+    opt.value = index;
+    opt.textContent = item.nome;
+    select.appendChild(opt);
+  });
+}
+
+function adicionarAlimento() {
+  const index = document.getElementById("nomeAlimento").value;
+  const gramas = Number(document.getElementById("gramas").value);
+
+  if (index === "" || !gramas) {
+    alert("Preencha todos os campos");
     return;
   }
 
-  const alimento = {
-    id: Date.now(),
-    nome,
-    gramas,
-    kcalTotal: ((gramas * kcal100) / 100).toFixed(1),
-    data: new Date().toLocaleDateString("pt-BR")
-  };
+  const base = JSON.parse(localStorage.getItem("alimentosBase"));
+  const usuario = JSON.parse(localStorage.getItem("alimentosUsuario"));
+  const alimentos = [...base, ...usuario];
 
-  const lista = JSON.parse(localStorage.getItem("kcalDiario")) || [];
-  lista.push(alimento);
-  localStorage.setItem("kcalDiario", JSON.stringify(lista));
-  carregarAlimentos();
+  const alimento = alimentos[index];
+  const kcal = (gramas * alimento.kcal100) / 100;
+
+  const registros = JSON.parse(localStorage.getItem("kcalDia"));
+  registros.push({ nome: alimento.nome, gramas, kcal });
+
+  localStorage.setItem("kcalDia", JSON.stringify(registros));
+  atualizarTelaKcal();
 }
 
-function carregarAlimentos() {
-  const listaEl = document.getElementById("listaAlimentos");
+function atualizarTelaKcal() {
+  const lista = document.getElementById("listaKcal");
   const totalEl = document.getElementById("totalKcal");
-  if (!listaEl || !totalEl) return;
+  if (!lista || !totalEl) return;
 
-  listaEl.innerHTML = "";
-  const hoje = new Date().toLocaleDateString("pt-BR");
-  const lista = JSON.parse(localStorage.getItem("kcalDiario")) || [];
-
+  lista.innerHTML = "";
   let total = 0;
 
-  lista.filter(i => i.data === hoje).forEach(item => {
-    total += parseFloat(item.kcalTotal);
+  const registros = JSON.parse(localStorage.getItem("kcalDia"));
 
-    const div = document.createElement("div");
-    div.className = "item-kcal";
-    div.innerHTML = `
-      <p><strong>${item.nome}</strong><br>${item.gramas} g · ${item.kcalTotal} kcal</p>
-      <button onclick="removerAlimento(${item.id})">✖</button>
+  registros.forEach((item, i) => {
+    total += item.kcal;
+    lista.innerHTML += `
+      <div class="item">
+        <strong>${item.nome}</strong><br>
+        ${item.gramas} g · ${item.kcal.toFixed(1)} kcal
+        <span onclick="removerAlimento(${i})">❌</span>
+      </div>
     `;
-    listaEl.appendChild(div);
   });
 
   totalEl.innerText = total.toFixed(1);
 }
 
-function removerAlimento(id) {
-  let lista = JSON.parse(localStorage.getItem("kcalDiario")) || [];
-  lista = lista.filter(a => a.id !== id);
-  localStorage.setItem("kcalDiario", JSON.stringify(lista));
-  carregarAlimentos();
+function removerAlimento(i) {
+  const registros = JSON.parse(localStorage.getItem("kcalDia"));
+  registros.splice(i, 1);
+  localStorage.setItem("kcalDia", JSON.stringify(registros));
+  atualizarTelaKcal();
 }
 
-/*************************
- * INIT
- *************************/
+function salvarNovoAlimento() {
+  const nome = document.getElementById("novoNome").value.trim();
+  const kcal100 = Number(document.getElementById("novoKcal").value);
+
+  if (!nome || !kcal100) {
+    alert("Preencha todos os campos");
+    return;
+  }
+
+  const usuario = JSON.parse(localStorage.getItem("alimentosUsuario"));
+  usuario.push({ nome, kcal100 });
+  localStorage.setItem("alimentosUsuario", JSON.stringify(usuario));
+
+  document.getElementById("novoNome").value = "";
+  document.getElementById("novoKcal").value = "";
+
+  carregarSelectAlimentos();
+}
+
+/************************************
+ * INIT GLOBAL
+ ************************************/
 document.addEventListener("DOMContentLoaded", () => {
   carregarRefeicoes();
-  carregarAlimentos();
+  carregarSelectAlimentos();
+  atualizarTelaKcal();
 
   const meta = localStorage.getItem("ultimaMeta");
   if (meta && document.getElementById("resultadoMeta")) {
