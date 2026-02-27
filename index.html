@@ -3,8 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Diário Fitness</title>
-
-  <!-- CSS (atenção ao caminho) -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -19,25 +17,39 @@
       </p>
     </header>
 
-    <nav class="menu">
-      <a href="pages/calculo.html">Cálculo saudável</a>
-      <a href="pages/metas.html">Meta semanal</a>
-      <a href="pages/refeicoes.html">Refeições</a>
-      <a href="pages/sobre.html">Sobre</a>
-    </nav>
-
-    <!-- 🔐 LOGIN -->
-<div class="acoes-site">
-  <a href="pages/login.html" class="btn-secundario">
-    🔐 Entrar / Criar usuário
-  </a>
-</div>
-
-    <!-- 🔥 BOTÃO PRINCIPAL -->
-    <div class="acoes-site">
-      <a href="pages/kcal.html" class="btn-principal">
-        🍎 Controle calórico diário
+    <!-- 🔐 LOGIN (sempre existe, mas pode ser escondido) -->
+    <div id="area-login" class="acoes-site">
+      <a href="pages/login.html" class="btn-principal">
+        🔐 Entrar / Criar usuário
       </a>
+    </div>
+
+    <!-- 👤 ÁREA DO USUÁRIO (só aparece logado) -->
+    <div id="area-usuario" style="display:none">
+
+      <p class="subtitle">
+        👋 Olá, <strong id="nomeUsuario"></strong>
+      </p>
+
+      <nav class="menu">
+        <a href="pages/calculo.html">Cálculo saudável</a>
+        <a href="pages/metas.html">Meta semanal</a>
+        <a href="pages/refeicoes.html">Refeições</a>
+        <a href="pages/sobre.html">Sobre</a>
+      </nav>
+
+      <div class="acoes-site">
+        <a href="pages/kcal.html" class="btn-principal">
+          🍎 Controle calórico diário
+        </a>
+      </div>
+
+      <div class="acoes-site">
+        <button onclick="logout()" class="btn-secundario">
+          🚪 Sair
+        </button>
+      </div>
+
     </div>
 
     <div class="alerta">
@@ -51,5 +63,6 @@
 
   </div>
 
+  <script src="js/script.js"></script>
 </body>
 </html>
