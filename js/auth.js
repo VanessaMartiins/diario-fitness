@@ -1,15 +1,13 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const btnLogin = document.getElementById("btnLogin");
+function entrar() {
+  const nome = document.getElementById("usuario").value.trim();
 
-  btnLogin.addEventListener("click", () => {
-    const nome = document.getElementById("usuario").value.trim();
+  if (!nome) {
+    alert("Digite um nome de usuário");
+    return;
+  }
 
-    if (!nome) {
-      alert("Digite um nome");
-      return;
-    }
+  localStorage.setItem("usuarioLogado", nome);
 
-    localStorage.setItem("usuarioLogado", nome);
-    window.location.href = "../index.html";
-  });
-});
+  // volta para a home
+  window.location.href = "../index.html";
+}
