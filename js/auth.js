@@ -11,3 +11,7 @@ function entrar() {
   // volta para a home
   window.location.href = "../index.html";
 }
+function logout() {
+  localStorage.removeItem("usuarioLogado");
+  window.location.href = "/diario-fitness/pages/login.html";
+}
